@@ -1,0 +1,35 @@
+{
+  "name": "codefellows-talent-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/codefellows-talent/codefellows-talent-backend.git",
+  "author": "Ryan Felix <therjfelix@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "jest --runInBand",
+    "test-watch": "jest --runInBand --watchAll",
+    "start-db": "mkdir -p ./db && mongod --dbpath ./db",
+    "stop-db": "killall mongod"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/src/__test__/lib/test.env.js"
+    ]
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7",
+    "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1",
+    "expect": "^1.20.2",
+    "jest": "^20.0.4",
+    "nodemon": "^1.11.0"
+  }
+}
