@@ -10,7 +10,8 @@
     "err": true,
     "req": true,
     "res": true,
-    "next": true
+    "next": true,
+    "expect": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
