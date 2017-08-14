@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./",
-    "prestart": "babel src/lib -d dist",
+    "prestart": "babel src -d dist",
     "start": "node dist/index.js",
-    "watch": "nodemon src/lib/index.js --exec babel-node",
+    "watch": "nodemon src/index.js --exec babel-node",
     "test": "jest --runInBand",
     "test-watch": "jest --runInBand --watchAll",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
