@@ -1,7 +1,13 @@
 import database from './database.js';
 import express from 'express';
+import routes from '../routes';
+import morgan from 'morgan';
 
 const app = express();
+
+app.use(morgan('dev'));
+app.use(routes);
+
 const appState = {
   isOn: false,
   http: null,
