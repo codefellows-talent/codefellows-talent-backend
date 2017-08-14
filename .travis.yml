@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - '7'
+services:
+  - mongodb
+notifications:
+  email: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
+env:
+  - MONGODB_URI='mongodb://localhost/travis' PORT=7000
+sudo: required
+before_script: yarn install
+script:
+  - yarn test
+  - yarn lint
+cache:
+  yarn: true
+  directories:
+    - node-modules
