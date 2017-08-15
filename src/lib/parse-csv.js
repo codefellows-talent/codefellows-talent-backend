@@ -1,5 +1,4 @@
-//import parse from 'csv-parse';
-const parse = require('csv-parse');
+import parse from 'csv-parse';
 
 const csvFieldToKey = {
   'Your email address, be sure to use the one we already have on record: ': 'email',
@@ -96,5 +95,4 @@ const parseCSV = csv => {
   });
 };
 
-module.exports = parseCSV;
-//export default parseCSV;
+export default parseCSV;
