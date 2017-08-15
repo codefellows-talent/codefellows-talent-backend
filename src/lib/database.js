@@ -10,7 +10,7 @@ const start = () => {
   if(dbState.isOn) {
     return Promise.reject(new Error('Database is already running.'));
   }
-  return mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+  return mongoose.connect(`${process.env.MONGODB_URI}/cf-hired`, { useMongoClient: true })
     .then(it => {
       console.log(`Database up at ${process.env.MONGODB_URI}`);
       dbState.isOn = true;
