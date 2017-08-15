@@ -8,9 +8,9 @@
   "scripts": {
     "lint": "eslint ./",
     "prestart": "babel src -d dist",
-    "start": "node dist/index.js",
+    "start": "node index.js",
     "watch": "nodemon src/index.js --exec babel-node",
-    "test": "jest --runInBand",
+    "test": "nyc mocha",
     "test-watch": "jest --runInBand --watchAll",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
     "stop-db": "killall mongod"
@@ -38,7 +38,9 @@
     "eslint": "^4.4.1",
     "expect": "^1.20.2",
     "jest": "^20.0.4",
-    "nodemon": "^1.11.0"
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^11.1.0"
   },
   "engines": {
     "node": "7.x.x"
