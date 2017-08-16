@@ -19,7 +19,7 @@ connectRouter.post(uri, json(), (req, res) => {
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.error(err);
-      res.sendStatus(501);
+      res.sendStatus(503);
     });
 });
 
