@@ -14,12 +14,12 @@ connectRouter.post(uri, json(), (req, res) => {
       .send('No client email field was included. A client email is required to connect with graduates.');
   }
   Promise.all(req.body.ids.map(id => appCache.get(id)))
-    .then(profiles => sendConnectionEmail(profiles))
+    .then(profiles => sendConnectionEmail(profiles, req.body.email))
     .then(() => sendClientEmail(req.body.email))
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.error(err);
-      res.sendStatus(501);
+      res.sendStatus(503);
     });
 });
 
