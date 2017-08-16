@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import superagent from 'superagent';
-import parseCSV from '../lib/parse-csv.js';
 import appCache from '../model/cache.js';
 
 const profileRouter = new Router();
