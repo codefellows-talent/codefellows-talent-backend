@@ -19,6 +19,10 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * AWS_SECRET_ACCESS_KEY - a valid AWS secret access key
   * S3_CSV_URI - the full URL of the CSV the server should consume
     * *Note: despite the name, it need not be hosted on AWS S3.*
+    * EMAIL_SOURCE - email source
+    * EMAIL_TARGET - target email
+    * AWS_REGION - AWS region where SES is hosted
+
 4. Run `yarn start`
   * For local testing, it is recommended to run `yarn watch` instead
 
