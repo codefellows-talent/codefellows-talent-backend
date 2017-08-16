@@ -1,10 +1,10 @@
 import AWS from 'aws-sdk';
 
-AWS.config.update({region: 'us-west-2'});
+AWS.config.update({region: `${process.env.AWS_REGION}`});
 const ses = new AWS.SES({ apiversion: '2010-12-01' });
 
-const fromAddress = 'cfhired@zoho.com';
-const toAddress = 'therjfelix@gmail.com';
+const fromAddress = `${process.env.EMAIL_SOURCE}`;
+const toAddress = `${process.env.EMAIL_TARGET}`;
 
 const formatProfileForEmail = profile => (
   `${profile.nickname}, ${profile.email} (Salesforce ID# ${profile.salesforceId})`
