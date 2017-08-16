@@ -57,10 +57,10 @@ const sendMail = (
   });
 };
 
-export const sendConnectionEmail = (profiles, clientEmail) => {
+export const sendConnectionEmail = (profiles, { email, name, company }) => {
   const formattedProfiles = profiles.map(formatProfileForEmail);
   const bodyText = 'A new request to connect with the following profiles was received:\n\n'.concat(formattedProfiles.reduce((message, text) => message.concat(text).concat('\n'), ''))
-    .concat(`\n\nFrom our hiring partner at ${clientEmail}.`);
+    .concat(`\n\nFrom our hiring partner ${name} at ${company}, who can be contacted at ${email}.`);
   return new Promise((resolve, reject) =>
     sendMail({
       to: toAddress,
@@ -76,8 +76,8 @@ export const sendConnectionEmail = (profiles, clientEmail) => {
   );
 };
 
-export const sendClientEmail = email => {
-  const bodyText = 'Your request to connect with Code Fellows graduates was received. Thank you!';
+export const sendClientEmail = ({ email, name, company }) => {
+  const bodyText = `${name}, your request to connect with Code Fellows graduates was received. Thank you and everyone at ${company}!`;
   return new Promise((resolve, reject) =>
     sendMail({
       to: email,
