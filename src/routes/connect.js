@@ -13,7 +13,10 @@ connectRouter.post(uri, json(), (req, res) => {
   Promise.all(req.body.ids.map(id => appCache.get(id)))
     .then(profiles => sendEmail(profiles))
     .then(() => res.sendStatus(200))
-    .catch(() => res.sendStatus(501));
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(501);
+    });
 });
 
 export default connectRouter;
