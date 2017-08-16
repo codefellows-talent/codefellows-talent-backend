@@ -16,7 +16,7 @@ profileRouter.get(uri, (req, res) => {
       // TODO:
       //   * assign profiles an id, send that too for client to use
       //     * can salesforceId uniquely id all profiles? preferably use that
-      //     * could use email address (or hash thereof) as id as well
+      //       * YES per Jeff Malek
       //   * cache profiles in memory
       //     * serve first page from memcache, while csv get/parse is ongoing
       //     * use cache on POST /api/v1/connect to retrieve email associated with a profile
