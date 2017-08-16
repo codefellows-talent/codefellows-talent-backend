@@ -8,8 +8,10 @@ const uri = `${process.env.API_URI}/profiles`;
 profileRouter.get(uri, (req, res) => {
   console.log('Serving some static profiles for dev porpoises!');
   // temporarily use static sample.csv as data source
+  const page = req.query.page || 0;
+  const pageLength = req.query.length || 10;
   appCache.update()
-    .then(() => appCache.getPage())
+    .then(() => appCache.getPage(pageLength, page))
     .then(profiles => {
       const sanitizedProfiles = profiles.map(profile => {
         const sanitized = {...profile};

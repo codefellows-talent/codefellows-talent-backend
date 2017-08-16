@@ -19,9 +19,9 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * AWS_SECRET_ACCESS_KEY - a valid AWS secret access key
   * S3_CSV_URI - the full URL of the CSV the server should consume
     * *Note: despite the name, it need not be hosted on AWS S3.*
-    * EMAIL_SOURCE - email source
-    * EMAIL_TARGET - target email
-    * AWS_REGION - AWS region where SES is hosted
+  * EMAIL_SOURCE - email source
+  * EMAIL_TARGET - target email for notifications sent to Code Fellows
+  * AWS_REGION - AWS region where SES is hosted
 
 4. Run `yarn start`
   * For local testing, it is recommended to run `yarn watch` instead
@@ -30,12 +30,17 @@ The server provides profile data for Code Fellows graduates who desire connectio
 
 * `${API_URI}/profiles`
   * `GET`: retrieves a list of graduate profiles that users may potentially connect with
-  * Pagination: work in progress.
+  * Pagination: via query string:
+    * `page=[number]`: which page of results to get
+    * `length=[number]`: how many profiles should be on a page
 * `${API_URI}/connect`
   * `POST`: requests connection with one or more profiles
     * Request body should contain `application/json` with the following fields:
       * `ids`: an array of `salesforceId` to connect with
-      * `userEmail`: a valid email address for the user (*not in use yet*)
+      * `email`: the hiring partner's email
+      * `name`: the hiring partner's name
+      * `company`: the hiring partner's company
+      * All fields are required.
 
 ## Profile Description
 
@@ -61,5 +66,4 @@ A profile is a JSON file with the following fields:
 * `roles`:
   * `top`: String - the graduate's preferred role
   * `other`: [String] - other roles the graduate is interested in
-* `id`: String - a unique ID identifying this profile
-  * (*this is temporarily named `salesforceId` but will be fixed soon*)
+* `salesforceId`: String - a unique ID identifying this profile
