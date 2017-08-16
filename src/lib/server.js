@@ -4,6 +4,8 @@ import routes from '../routes';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import appCache from '../model/cache.js';
+
 const app = express();
 
 app.use(cors());
@@ -24,6 +26,8 @@ const start = () => {
       .then(() => {
         appState.http = app.listen(process.env.PORT, () => {
           console.log(`Server up at port ${process.env.PORT}`);
+          appCache.update()
+            .then(() => console.log(`App cache populated.`));
           appState.isOn = true;
           resolve();
         });
