@@ -1,10 +1,23 @@
+import fs from 'fs';
 import AWS from 'aws-sdk';
+import Mustache from 'mustache';
 
 AWS.config.update({region: `${process.env.AWS_REGION}`});
 const ses = new AWS.SES({ apiversion: '2010-12-01' });
 
 const fromAddress = `${process.env.EMAIL_SOURCE}`;
 const toAddress = `${process.env.EMAIL_TARGET}`;
+
+let template = null;
+
+fs.readFile(`${__dirname}/../../static/email.mst`, 'utf8', (err, data) => {
+  if(err) {
+    console.error(err);
+    console.log(`${__dirname}/../../static/email.mst`);
+  }
+  template = data;
+  Mustache.parse(template);
+});
 
 const formatProfileForEmail = profile => (
   `${profile.nickname}, ${profile.email} (Salesforce ID# ${profile.salesforceId})`
@@ -77,12 +90,12 @@ export const sendConnectionEmail = (profiles, { email, name, company }) => {
 };
 
 export const sendClientEmail = ({ email, name, company }) => {
-  const bodyText = `${name}, your request to connect with Code Fellows graduates was received. Thank you and everyone at ${company}!`;
+  //const bodyText = `${name}, your request to connect with Code Fellows graduates was received. Thank you and everyone at ${company}!`;
   return new Promise((resolve, reject) =>
     sendMail({
       to: email,
       subject: 'Your request to connect with Code Fellows graduates was received',
-      bodyText,
+      bodyHtml: Mustache.render(template, { name, company }),
     }, function(err, data) {
       if(err)
         reject(err);
