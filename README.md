@@ -22,6 +22,7 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * EMAIL_SOURCE - email source
   * EMAIL_TARGET - target email for notifications sent to Code Fellows
   * AWS_REGION - AWS region where SES is hosted
+  * EMAIL_RATE_LIMIT - the minimum time (in ms) between sending emails. Defaults to 60000 ms (1 minute).
 
 4. Run `yarn start`
   * For local testing, it is recommended to run `yarn watch` instead
@@ -41,6 +42,7 @@ The server provides profile data for Code Fellows graduates who desire connectio
       * `name`: the hiring partner's name
       * `company`: the hiring partner's company
       * All fields are required.
+    * Causes emails to be sent to the hiring partner and to a designated Code Fellows account. These emails are rate limited according to the EMAIL_RATE_LIMIT environment variable.
 
 ## Profile Description
 

@@ -2,11 +2,35 @@ import { Router } from 'express';
 import { json } from 'body-parser';
 
 import appCache from '../model/cache.js';
-import { sendConnectionEmail, sendClientEmail } from '../lib/email.js';
+import { sendConnectionEmail as _sendConnectionEmail, sendClientEmail as _sendClientEmail } from '../lib/email.js';
 
 const uri = `${process.env.API_URI}/connect`;
+const EMAIL_RATE_LIMIT = process.env.EMAIL_RATE_LIMIT || 60000; // 1 minute
 
 const connectRouter = new Router();
+
+const rateLimit = (fn, frequency) => {
+  let queue = [];
+  let interval = null;
+  return (...args) => {
+    const callFn = () => fn(...args);
+    if(!interval) {
+      interval = setInterval(() => {
+        if(queue.length > 0) {
+          queue.shift()();
+        } else {
+          clearInterval(interval);
+          interval = null;
+        }
+      }, frequency);
+      callFn();
+    }
+    queue.push(callFn);
+  };
+};
+
+const sendConnectionEmail = rateLimit(_sendConnectionEmail, EMAIL_RATE_LIMIT);
+const sendClientEmail = rateLimit(_sendClientEmail, EMAIL_RATE_LIMIT);
 
 connectRouter.post(uri, json(), (req, res) => {
   if(!(req.body.email && req.body.company && req.body.name)) {
