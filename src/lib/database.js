@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 
 // database state
-const dbState = { isOn: false };
+//const dbState = { isOn: false };
 
 const start = () => {
   console.log('Database would have been started.');
