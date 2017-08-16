@@ -1,3 +1,7 @@
+// THIS FILE ISN'T USED
+// but we're keeping it around temporarily as documentation
+// of the shape of the profile
+
 import Mongoose, { Schema } from 'mongoose';
 
 const profileSchema = new Schema({

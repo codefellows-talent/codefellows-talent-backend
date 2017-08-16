@@ -1,4 +1,5 @@
 import parse from 'csv-parse';
+import uuid from 'uuid/v4';
 
 const csvFieldToKey = {
   'Your email address, be sure to use the one we already have on record: ': 'email',
@@ -44,6 +45,9 @@ const parseCSV = csv => {
             prof[csvFieldToKey[key]] = profile[key];
           }
         });
+        if(prof.salesforceId === 'not_found') {
+          prof.salesforceId = uuid();
+        }
         prof.relocation = prof.relocation === 'Yes';
         prof.employmentTypes = Object.keys(employmentTypeToKey).reduce((res, key) => {
           res[employmentTypeToKey[key]] = prof.employmentTypes.includes(key);
