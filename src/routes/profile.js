@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import superagent from 'superagent';
 import parseCSV from '../lib/parse-csv.js';
+import appCache from '../model/cache.js';
 
 const profileRouter = new Router();
 
@@ -18,6 +19,7 @@ profileRouter.get(uri, (req, res) => {
       //     * can salesforceId uniquely id all profiles? preferably use that
       //       * YES per Jeff Malek
       //   * cache profiles in memory
+      parsedData.forEach(profile => appCache.add(profile));
       //     * serve first page from memcache, while csv get/parse is ongoing
       //     * use cache on POST /api/v1/connect to retrieve email associated with a profile
       //     * use Redis or another memcache tool? (would be cool to learn!)

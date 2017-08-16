@@ -1,3 +1,11 @@
-import profileRoutes from './profile.js';
+import { Router } from 'express';
 
-export default profileRoutes;
+import profileRoutes from './profile.js';
+import connectRoutes from './connect.js';
+
+
+export default new Router()
+  .use([
+    profileRoutes,
+    connectRoutes,
+  ]);
