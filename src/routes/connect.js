@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import superagent from 'superagent';
 import { json } from 'body-parser';
 
 import appCache from '../model/cache.js';
