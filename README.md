@@ -23,6 +23,7 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * EMAIL_TARGET - target email for notifications sent to Code Fellows
   * AWS_REGION - AWS region where SES is hosted
   * EMAIL_RATE_LIMIT - the minimum time (in ms) between sending emails. Defaults to 60000 ms (1 minute).
+  * CACHE_UPDATE_INTERVAL - the minimum time (in ms) between updates of the cache from the remote data source. Defaults to 60000 ms (1 minute).
 
 4. Run `yarn start`
   * For local testing, it is recommended to run `yarn watch` instead
@@ -34,6 +35,11 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * Pagination: via query string:
     * `page=[number]`: which page of results to get
     * `length=[number]`: how many profiles should be on a page
+    * `shuffle=true`: request *shuffled* results, in a random order; only required if you do not yet have a `shuffleToken`
+    * `shuffleToken=[token]`: request a page of *shuffled* results, given this token. Each token corresponds to an ordering of results. Using the same token for multiple pages will ensure that no profiles are repeated between shuffled pages.
+    * **IMPORTANT**: when using `shuffle` or `shuffleToken`, the structure of the data returned is different! It will be:
+      * `{ profiles: [Profile], shuffleToken: String }`
+      * (In the future, this will be the structure of all profile data returned.)
 * `${API_URI}/connect`
   * `POST`: requests connection with one or more profiles
     * Request body should contain `application/json` with the following fields:

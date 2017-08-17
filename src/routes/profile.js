@@ -5,19 +5,37 @@ const profileRouter = new Router();
 
 const uri = `${process.env.API_URI}/profiles`;
 
+const sanitize = profiles => profiles.map(profile => {
+  const sanitized = {...profile};
+  delete sanitized.email;
+  return sanitized;
+});
+
 profileRouter.get(uri, (req, res) => {
   console.log('Serving some static profiles for dev porpoises!');
   // temporarily use static sample.csv as data source
-  const page = req.query.page || 0;
+  const page = req.query.page || 1;
   const pageLength = req.query.length || 10;
-  appCache.update()
-    .then(() => appCache.getPage(pageLength, page))
-    .then(profiles => {
-      const sanitizedProfiles = profiles.map(profile => {
-        const sanitized = {...profile};
-        delete sanitized.email;
-        return sanitized;
+  let shuffleToken = req.query.shuffleToken;
+  if(req.query.shuffle) {
+    shuffleToken = appCache.getShuffleToken();
+    console.log(shuffleToken);
+  }
+  if(shuffleToken) {
+    return appCache.getShufflePage(shuffleToken, pageLength, page)
+      .then(profiles => {
+        const sanitizedProfiles = sanitize(profiles);
+        const returnVal = {
+          profiles: sanitizedProfiles,
+          shuffleToken,
+        };
+        res.status(200)
+          .json(returnVal);
       });
+  }
+  appCache.getPage(pageLength, page)
+    .then(profiles => {
+      const sanitizedProfiles = sanitize(profiles);
       res.status(200)
         .json(sanitizedProfiles);
     })
