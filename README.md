@@ -34,6 +34,11 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * Pagination: via query string:
     * `page=[number]`: which page of results to get
     * `length=[number]`: how many profiles should be on a page
+    * `shuffle=true`: request *shuffled* results, in a random order; only required if you do not yet have a `shuffleToken`
+    * `shuffleToken=[token]`: request a page of *shuffled* results, given this token. Each token corresponds to an ordering of results. Using the same token for multiple pages will ensure that no profiles are repeated between shuffled pages.
+    * **IMPORTANT**: when using `shuffle` or `shuffleToken`, the structure of the data returned is different! It will be:
+      * `{ profiles: [Profile], shuffleToken: String }`
+      * (In the future, this will be the structure of all profile data returned.)
 * `${API_URI}/connect`
   * `POST`: requests connection with one or more profiles
     * Request body should contain `application/json` with the following fields:
