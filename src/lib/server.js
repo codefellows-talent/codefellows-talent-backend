@@ -22,14 +22,14 @@ const start = () => {
     if(appState.isOn) {
       return reject(new Error('Server is already on.'));
     }
+    appState.isOn = true;
     database.start()
       .then(() => {
         appState.http = app.listen(process.env.PORT, () => {
           console.log(`Server up at port ${process.env.PORT}`);
           appCache.update()
-            .then(() => console.log(`App cache populated.`));
-          appState.isOn = true;
-          resolve();
+            .then(() => console.log(`App cache populated.`))
+            .then(resolve);
         });
       });
   });
@@ -40,11 +40,11 @@ const stop = () => {
     if(!appState.isOn) {
       return reject(new Error('Server is not running.'));
     }
+    appState.isOn = false;
     database.stop()
       .then(() => {
         appState.http.close(() => {
           console.log('Server stopped.');
-          appState.isOn = false;
           appState.http = null;
           resolve();
         });

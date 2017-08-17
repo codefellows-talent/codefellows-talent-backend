@@ -1,4 +1,4 @@
-process.env.PORT = 3002;
+process.env.PORT = 3000;
 process.env.MONGODB_URI = (
   process.env.TRAVIS
     ? process.env.MONGODB_URI
