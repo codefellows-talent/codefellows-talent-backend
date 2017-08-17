@@ -18,7 +18,11 @@
   "jest": {
     "setupFiles": [
       "<rootDir>/src/__test__/lib/test.env.js"
-    ]
+    ],
+    "roots": [
+      "src/"
+    ],
+    "testEnvironment": "node"
   },
   "dependencies": {
     "aws-sdk": "^2.99.0",
