@@ -23,6 +23,7 @@ The server provides profile data for Code Fellows graduates who desire connectio
   * EMAIL_TARGET - target email for notifications sent to Code Fellows
   * AWS_REGION - AWS region where SES is hosted
   * EMAIL_RATE_LIMIT - the minimum time (in ms) between sending emails. Defaults to 60000 ms (1 minute).
+  * CACHE_UPDATE_INTERVAL - the minimum time (in ms) between updates of the cache from the remote data source. Defaults to 60000 ms (1 minute).
 
 4. Run `yarn start`
   * For local testing, it is recommended to run `yarn watch` instead

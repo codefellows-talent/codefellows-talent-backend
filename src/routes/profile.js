@@ -18,13 +18,10 @@ profileRouter.get(uri, (req, res) => {
   const pageLength = req.query.length || 10;
   let shuffleToken = req.query.shuffleToken;
   if(req.query.shuffle) {
-    console.log('shuffle token is: ')
     shuffleToken = appCache.getShuffleToken();
     console.log(shuffleToken);
   }
   if(shuffleToken) {
-    console.log('using shuffle!')
-    console.log(`token ${shuffleToken}, length ${pageLength}, page ${page}`)
     return appCache.getShufflePage(shuffleToken, pageLength, page)
       .then(profiles => {
         const sanitizedProfiles = sanitize(profiles);
