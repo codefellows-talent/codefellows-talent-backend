@@ -10,7 +10,7 @@
     "prestart": "babel src -d dist",
     "start": "node dist/index.js",
     "watch": "nodemon src/index.js --exec babel-node",
-    "test": "jest --runInBand --coverage",
+    "test": "jest --runInBand --coverage --verbose",
     "test-watch": "jest --runInBand --watchAll --coverage",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
     "stop-db": "killall mongod"
