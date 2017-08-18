@@ -10,15 +10,19 @@
     "prestart": "babel src -d dist",
     "start": "node dist/index.js",
     "watch": "nodemon src/index.js --exec babel-node",
-    "test": "jest --runInBand",
-    "test-watch": "jest --runInBand --watchAll",
+    "test": "jest --runInBand --coverage --verbose",
+    "test-watch": "jest --runInBand --watchAll --coverage",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
     "stop-db": "killall mongod"
   },
   "jest": {
     "setupFiles": [
       "<rootDir>/src/__test__/lib/test.env.js"
-    ]
+    ],
+    "roots": [
+      "src/"
+    ],
+    "testEnvironment": "node"
   },
   "dependencies": {
     "aws-sdk": "^2.99.0",
@@ -41,10 +45,12 @@
     "webpack": "^3.5.4"
   },
   "devDependencies": {
+    "aws-sdk-mock": "^1.7.0",
     "eslint": "^4.4.1",
     "expect": "^1.20.2",
     "jest": "^20.0.4",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "sinon": "^3.2.1"
   },
   "engines": {
     "node": "7.x.x"

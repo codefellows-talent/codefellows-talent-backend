@@ -20,7 +20,7 @@ fs.readFile(`${__dirname}/../../static/email.mst`, 'utf8', (err, data) => {
 });
 
 const formatProfileForEmail = profile => (
-  `${profile.nickname}, ${profile.email} (Salesforce ID# ${profile.salesforceId})`
+  `${profile.nickname}, ${profile.email} (Salesforce link https://na34.salesforce.com/${profile.salesforceId})`
 );
 
 const sendMail = (
